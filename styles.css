@@ -58,7 +58,6 @@ body {
   align-items: center;
   display: flex;
   padding: 1px;
-  
 }
 .Logo h3,
 .logo__wrapper h2 {
@@ -444,19 +443,15 @@ select {
   border: 1px solid #666666;
 }
 
-
-
 /* Dashboard Styles */
-.filter_container{
+.filter_container {
   padding-top: 6rem;
   width: 100%;
   padding-left: 16rem;
   padding-right: 1rem;
-  background-color:#f9f5f5;
-
-
+  background-color: #f9f5f5;
 }
-.filter{
+.filter {
   display: flex;
   justify-content: space-between;
   border: 1px solid #fcfc;
@@ -464,9 +459,8 @@ select {
   align-items: center;
   background-color: #fcfcfc;
   border-radius: 10px;
-
 }
-.filter div{
+.filter div {
   border: 1px solid #c8bebe66;
   background-color: #fff;
   padding: 1rem;
@@ -479,53 +473,50 @@ select {
   transition: color 1s;
   transition: background-color 1s;
 }
-.filter div:hover{
-  background-color:rgba(54, 15, 54, 0.8);
+.filter div:hover {
+  background-color: rgba(54, 15, 54, 0.8);
   color: #fff;
 }
-body.collapsed .filter_container{
+body.collapsed .filter_container {
   padding-left: 6rem;
 }
-.Receipts-table{
- 
+.Receipts-table {
   padding: 1rem;
-  
 }
-.receiptN{
+.receiptN {
   padding-bottom: 1rem;
 }
-.receiptN h2{
+.receiptN h2 {
   font-size: 1rem;
   color: #666;
-
 }
-.receiptsDb{
-  background-color:#fff;
+.receiptsDb {
+  background-color: #fff;
   padding: 1rem;
   border-radius: 5px;
 }
-.receiptsDb h3{
+.receiptsDb h3 {
   font-weight: 500;
   padding-bottom: 10px;
   font-size: 1.1rem;
 }
-.receiptsDb p{
+.receiptsDb p {
   font-size: 1rem;
   padding-bottom: 10px;
 }
-.receiptsDb input{
+.receiptsDb input {
   padding: 0.4rem 1rem;
   border-radius: 5px;
-  border:1px solid #ddd;
+  border: 1px solid #ddd;
   font-size: 1rem;
-
 }
-.receipts-table{
+.receipts-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
-.receipts-table th, .receipts-table td {
+.receipts-table th,
+.receipts-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -535,33 +526,34 @@ body.collapsed .filter_container{
   font-size: 0.8rem;
   font-weight: 700;
 }
-.receipts-table td{
+.receipts-table td {
   font-size: 1rem;
-
 }
-
 
 .receipts-table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
-
 }
 .filter div.active {
   background-color: #cb8de7; /* Change to your desired color */
   color: #fff; /* Change to your desired text color */
 }
-.pagination-container button{
+.pagination-container button {
   margin-right: 8px;
   margin-top: 10px;
   padding: 4px 5px;
-  font-size:0.8rem;
- 
- 
-
-
+  font-size: 0.8rem;
 }
 
 .pagination-btn.active {
   background-color: #cb8de7; /* Change this to your desired active color */
   color: #fff; /* Change this to your desired text color for active button */
 }
-
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#totalReceipt,
+#total_price {
+  font-weight: 700;
+}

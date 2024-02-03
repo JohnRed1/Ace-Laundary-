@@ -51,12 +51,16 @@
       </div>
     </header>
 
+    
+    
+    <!-- Header Ends Here -->
+    
     <!-- Receipt Filter -->
     <div class="filter_container">
       <div class="filter">
-        <div id="all">All</div>
-        <div id="paid">Paid</div>
-        <div id="not_paid">Not Paid</div>
+        <div class="filter-option">All</div>
+        <div class="filter-option">Paid</div>
+        <div class="filter-option">Not Paid</div>
       </div>
       <div class="Receipts-table">
         <div class="receiptN">
@@ -66,12 +70,21 @@
         </div>
         
         <div class="receiptsDb">
-          <h3>
-            Receipt Numbers's Table <span>2024-02-01</span>
-          </h3>
-          <p>Table shows list of <span>30</span> receipt numbers</p>
-
-          <input type="date">
+          <div class="summary">
+            <div>
+              <h3>
+                Receipt Numbers's Table <span id="date">2024-02-01</span>
+              </h3>
+              <p>Table shows list of <span id="totalReceipt">30</span> receipt numbers</p>
+    
+              <input type="date" id="calender">
+            </div>
+            <div>
+              <h3>Total Price</h3>
+              <p><span id="total_price">56.78</span></p>
+            </div>
+          </div>
+      
 
           <!-- Tables -->
 
@@ -81,36 +94,14 @@
                 <th>S/N</th>
                 <th>Receipt Numbers</th>
                 <th>Paid Status</th>
+                <th>Price</th>
                 <th>Date</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Your table rows will go here -->
-              <tr>
-                <td>1</td>
-                <td>12345</td>
-                <td>Paid</td>
-                <td>2024-02-01</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>12345</td>
-                <td>Paid</td>
-                <td>2024-02-01</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>12345</td>
-                <td>Paid</td>
-                <td>2024-02-01</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>12345</td>
-                <td>Paid</td>
-                <td>2024-02-01</td>
-              </tr>
-              <!-- Add more rows as needed -->
+              <!-- Your table rows will be populated here from database  -->
+              
+              
              
             </tbody>
           </table>
@@ -126,10 +117,6 @@
   
       </div>
     </div>
-
-
-    <!-- Header Ends Here -->
-
       <!-- sidenav starts Here -->
       <nav>
         <div class="sidebar-top">
@@ -239,10 +226,87 @@
     <script src="main.js"></script>
 
 
-<script>
- 
 
-  // Add the function to populate the table with data from local storage based on filter and page
+<script>
+  // Function to handle clicks on filter divs
+  function handleFilterClick(event) {
+    const filterDivs = document.querySelectorAll('.filter-option'); // Use a shared class name
+
+    // Check if the click target is a filter div
+    if (event.target.classList.contains('filter-option')) {
+      // Remove 'active' class from all filter divs
+      filterDivs.forEach(div => div.classList.remove('active'));
+
+      // Add 'active' class to the clicked filter div
+      event.target.classList.add('active');
+
+      // Get the filter value from the clicked div's text content
+      const filter = event.target.textContent.trim();
+
+      // Call the function to populate the table based on the selected filter and first page
+      populateTable(filter, 1);
+
+      // Call the function to display the total price for the selected filter
+      displayTotalPrice(filter);
+
+      updateTotalReceipt(filter);
+    }
+  }
+
+  // Function to update the total receipt count for a given filter
+function updateTotalReceipt(filter) {
+  const totalReceiptElement = document.getElementById('totalReceipt');
+
+  // Retrieve data from local storage
+  const storedReceipts = localStorage.getItem('receiptDatabase');
+
+  if (storedReceipts) {
+    const receiptDatabase = JSON.parse(storedReceipts);
+
+    // Filter and sort receipts based on the selected filter
+    const filteredReceipts = filterReceipts(receiptDatabase, filter);
+
+    // Update the total receipt count
+    totalReceiptElement.textContent = filteredReceipts.length;
+  }
+}
+
+
+  // Function to filter and sort receipts based on the selected filter
+  function filterReceipts(receipts, filter) {
+    let filteredReceipts;
+
+    if (filter === 'All') {
+      filteredReceipts = receipts;
+    } else {
+      filteredReceipts = receipts.filter(receipt => receipt.isPaid === filter);
+    }
+
+    // Sort receipts in descending order based on their index
+    return filteredReceipts.sort((a, b) => b.index - a.index);
+  }
+
+  // Function to display the total price for a given filter
+  function displayTotalPrice(filter) {
+    const total_price = document.getElementById('total_price');
+
+    // Retrieve data from local storage
+    const storedReceipts = localStorage.getItem('receiptDatabase');
+
+    if (storedReceipts) {
+      const receiptDatabase = JSON.parse(storedReceipts);
+
+      // Filter and sort receipts based on the selected filter
+      const filteredReceipts = filterReceipts(receiptDatabase, filter);
+
+      // Calculate the total price for the selected filter
+      const totalPrice = filteredReceipts.reduce((total, receipt) => total + parseFloat(receipt.totalPreviewPrice), 0);
+
+      // Display the total price
+      total_price.textContent = "₦" + totalPrice.toFixed(2);
+    }
+  }
+
   function populateTable(filter, page) {
     const pageSize = 5; // Number of receipts per page
     const tableBody = document.querySelector('.receipts-table tbody');
@@ -258,11 +322,17 @@
     if (storedReceipts) {
       const receiptDatabase = JSON.parse(storedReceipts);
 
-      // Filter receipts based on the selected filter
+      // Filter and sort receipts based on the selected filter
       const filteredReceipts = filterReceipts(receiptDatabase, filter);
 
+      // Sort receipts in descending order based on their addition order
+      const sortedReceipts = filteredReceipts.sort((a, b) => a.addedTimestamp - b.addedTimestamp);
+
+      // Reverse the order to display the last added receipt at the top
+      sortedReceipts.reverse();
+
       // Calculate the total number of pages
-      const totalPages = Math.ceil(filteredReceipts.length / pageSize);
+      const totalPages = Math.ceil(sortedReceipts.length / pageSize);
 
       // Populate the pagination buttons
       for (let i = 1; i <= totalPages; i++) {
@@ -281,7 +351,7 @@
       const startIndex = (page - 1) * pageSize;
 
       // Extract the receipts for the current page
-      const pageReceipts = filteredReceipts.slice(startIndex, startIndex + pageSize);
+      const pageReceipts = sortedReceipts.slice(startIndex, startIndex + pageSize);
 
       // Iterate through the receipts for the current page and populate the table
       pageReceipts.forEach((receipt, index) => {
@@ -289,22 +359,15 @@
         const serialNumberCell = row.insertCell(0);
         const receiptNumberCell = row.insertCell(1);
         const paidStatusCell = row.insertCell(2);
-        const dateCell = row.insertCell(3);
+        const priceCell = row.insertCell(3); // New cell for Price
+        const dateCell = row.insertCell(4); // Adjust index for Date
 
         serialNumberCell.textContent = startIndex + index + 1;
         receiptNumberCell.textContent = receipt.previewNumber;
         paidStatusCell.textContent = receipt.isPaid;
-        dateCell.textContent = receipt.date; // Add the property 'date' to your receipt data
+        priceCell.textContent = "₦" + receipt.totalPreviewPrice; // Display total price with prefix
+        dateCell.textContent = receipt.date;
       });
-    }
-  }
-
-  // Function to filter receipts based on the selected filter
-  function filterReceipts(receipts, filter) {
-    if (filter === 'All') {
-      return receipts;
-    } else {
-      return receipts.filter(receipt => receipt.isPaid === filter);
     }
   }
 
@@ -313,56 +376,58 @@
     const page = parseInt(event.target.textContent);
 
     // Get the current active filter
-    const activeFilter = document.querySelector('.filter div.active').textContent.trim();
+    const activeFilter = document.querySelector('.filter-option.active').textContent.trim();
 
     // Call the function to populate the table based on the selected filter and page
     populateTable(activeFilter, page);
+
+    // Call the function to display the total price for the selected filter
+    displayTotalPrice(activeFilter);
   }
 
-  // Call the function to populate the table with all receipts on page load
-  window.addEventListener('load', function () {
-    populateTable('All', 1); // 'All' will show all receipts initially on the first page
+  // Call the function to populate the table with all receipts and display total price on page load
+window.addEventListener('load', function () {
+  // Display the total price for 'All' on page load
+  displayTotalPrice('All');
 
-    // Add event listener to filter container for event delegation
-    const filterContainer = document.querySelector('.filter_container');
-    filterContainer.addEventListener('click', function (event) {
-      if (event.target.tagName === 'DIV') {
-        // Remove 'active' class from all filter divs
-        const filterDivs = document.querySelectorAll('.filter div');
-        filterDivs.forEach(d => d.classList.remove('active'));
+  // Populate the table with all receipts initially on the first page
+  populateTable('All', 1);
 
-        // Add 'active' class to the clicked filter div
-        event.target.classList.add('active');
+   // Update the total receipt count for 'All' on page load
+   updateTotalReceipt('All');
 
-        // Get the filter value from the clicked div's text content
-        const filter = event.target.textContent.trim();
+  // Add event listener to filter container for event delegation
+  const filterContainer = document.querySelector('.filter_container');
+  filterContainer.addEventListener('click', handleFilterClick);
 
-        // Call the function to populate the table based on the selected filter and first page
-        populateTable(filter, 1);
-      }
-    });
+  // Set the "All" div as active on page load
+  const allDiv = document.querySelector('.filter-option:first-child');
+  allDiv.classList.add('active');
 
-    // Set the "All" div as active on page load
-    const allDiv = document.querySelector('.filter div:first-child');
-    allDiv.classList.add('active');
+  // Add event listener to pagination container for event delegation
+  const paginationContainer = document.querySelector('.pagination-container');
+  paginationContainer.addEventListener('click', function (event) {
+    if (event.target.classList.contains('pagination-btn')) {
+      // Remove 'active' class from all pagination buttons
+      const paginationButtons = document.querySelectorAll('.pagination-btn');
+      paginationButtons.forEach(button => button.classList.remove('active'));
 
-    // Add event listener to pagination container for event delegation
-    const paginationContainer = document.querySelector('.pagination-container');
-    paginationContainer.addEventListener('click', function (event) {
-      if (event.target.classList.contains('pagination-btn')) {
-        // Remove 'active' class from all pagination buttons
-        const paginationButtons = document.querySelectorAll('.pagination-btn');
-        paginationButtons.forEach(button => button.classList.remove('active'));
+      // Add 'active' class to the clicked pagination button
+      event.target.classList.add('active');
 
-        // Add 'active' class to the clicked pagination button
-        event.target.classList.add('active');
-
-        // Call the function to handle pagination navigation
-        handlePaginationNavigation(event);
-      }
-    });
+      // Call the function to handle pagination navigation
+      handlePaginationNavigation(event);
+    }
   });
+});
+
+
+
+
 </script>
+
+
+
 
 
 

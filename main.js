@@ -295,14 +295,14 @@ function storeReceipt() {
   const paidCheckbox = document.getElementById("paidCheckbox");
   const isPaid = paidCheckbox.checked ? "Paid" : "Not Paid";
 
-  // Create an object to represent the receipt
+  // object to represent the receipt
   const receiptInfo = {
     previewNumber,
     items: [],
     totalPreviewPrice,
     isPaid,
-    date: new Date().toLocaleDateString(), // Add the 'date' property with the current date
-
+    date: new Date().toLocaleDateString(),
+    addedTimestamp: Date.now(),
   };
 
   // Iterate through each list item in the selected clothes list
@@ -413,28 +413,6 @@ function handleInput() {
   }
 }
 
-// function handleKeyDown() {
-//   if (!isListeningForKeydown) {
-//     return;
-//   }
-
-//   const matchingReceipts = searchMatchingReceipts(inputValue);
-
-//   // Check if there are matching receipts
-//   if (matchingReceipts.length > 0) {
-//     // Iterate over the matching receipts and display their preview numbers
-//     for (const receipt of matchingReceipts) {
-//       errMsg(`Matching Receipt: ${receipt.previewNumber}`);
-
-//     }
-//   } else {
-//     errMsg("No matching receipts found.");
-//   }
-
-//   // Update UI or log the matching receipts
-//   // updateMatchingReceipts(matchingReceipts);
-// }
-
 function handleKeyDown() {
   if (!isListeningForKeydown) {
     return;
@@ -505,16 +483,6 @@ function calculateTotalAmounts() {
 
   return { totalAmountPaid, totalAmountNotPaid };
 }
-
-// Example usage:
-// Call this function at the end of the day or whenever you want to get the totals
-const { totalAmountPaid, totalAmountNotPaid } = calculateTotalAmounts();
-
-console.log(
-  `Total Amount for The day:#${totalAmountPaid + totalAmountNotPaid}`
-);
-console.log(`Total Amount Paid:#${totalAmountPaid}`);
-console.log(`Total Amount Not Paid:#${totalAmountNotPaid}`);
 
 const expand_btn = document.querySelector(".expand-btn");
 
