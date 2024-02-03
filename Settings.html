@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ace Laundry Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header starts Here -->
+
+    <header>
+      <div class="navbar">
+        <div class="Logo">
+          <img src="Ace logo.png" alt="Logo" />
+          <h3>Laundry Services</h3>
+        </div>
+        <div class="search-bar">
+          <input
+            class="Searchbar searchId"
+            type="text"
+            placeholder="Search Receipt"
+            oninput="handleInput()"
+            onkeydown="handleKeyDown()"
+          />
+          <button class="search-button">
+            <span class="material-symbols-outlined" onclick="searchReceipt()">
+              search
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Results -->
+      <div id="matchingReceiptsList">
+        <!-- Matching receipt numbers will be displayed here -->
+      </div>
+
+      <div id="receiptDetails">
+        <!-- Receipt details will be displayed here -->
+      </div>
+    </header>
+
+    <!-- Header Ends Here -->
+
+      <!-- sidenav starts Here -->
+      <nav>
+        <div class="sidebar-top">
+          <div class="logo__wrapper">
+            <h2 class="hide">Ace Laundry</h2>
+          </div>
+          <div class="expand-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="white"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M7 7l5 5l-5 5"></path>
+              <path d="M13 7l5 5l-5 5"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="sidebar-links">
+          <ul>
+            <li>
+              <a href="Dashboard.html" title="Dashboard">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="#91959C"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M4 4h6v8h-6z"></path>
+                  <path d="M4 16h6v4h-6z"></path>
+                  <path d="M14 12h6v8h-6z"></path>
+                  <path d="M14 4h6v4h-6z"></path>
+                </svg>
+                <span class="link hide">Dashboard</span>
+              </a>
+            </li>
+            <!-- <li>
+              <a href="#reports" title="Reports">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="#91959C"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"
+                  ></path>
+                </svg>
+                <span class="link hide">Reports</span>
+              </a>
+            </li> -->
+
+          </ul>
+        </div>
+        <div class="sidebar-links sidebar-bottom">
+          <div class="divider"></div>
+          <ul>
+            <li>
+              <a href="#" title="Settings">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="#91959C"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
+                  ></path>
+                  <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                </svg>
+                <span class="link hide">Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- Sidenar Ends Here -->
+
+
+      <!-- snackbar -->
+      <div id="empty-field-alert"></div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

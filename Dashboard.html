@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ace Laundry Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header starts Here -->
+
+    <header>
+      <div class="navbar">
+        <div class="Logo">
+          <img src="Ace logo.png" alt="Logo" />
+          <h3>Laundry Services</h3>
+        </div>
+        <div class="search-bar">
+          <input
+            class="Searchbar searchId"
+            type="text"
+            placeholder="Search Receipt"
+            oninput="handleInput()"
+            onkeydown="handleKeyDown()"
+          />
+          <button class="search-button">
+            <span class="material-symbols-outlined" onclick="searchReceipt()">
+              search
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Results -->
+      <div id="matchingReceiptsList">
+        <!-- Matching receipt numbers will be displayed here -->
+      </div>
+
+      <div id="receiptDetails">
+        <!-- Receipt details will be displayed here -->
+      </div>
+    </header>
+
+    <!-- Receipt Filter -->
+    <div class="filter_container">
+      <div class="filter">
+        <div id="all">All</div>
+        <div id="paid">Paid</div>
+        <div id="not_paid">Not Paid</div>
+      </div>
+      <div class="Receipts-table">
+        <div class="receiptN">
+          <h2>
+            Receipts
+          </h2>
+        </div>
+        
+        <div class="receiptsDb">
+          <h3>
+            Receipt Numbers's Table <span>2024-02-01</span>
+          </h3>
+          <p>Table shows list of <span>30</span> receipt numbers</p>
+
+          <input type="date">
+
+          <!-- Tables -->
+
+          <table class="receipts-table">
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Receipt Numbers</th>
+                <th>Paid Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Your table rows will go here -->
+              <tr>
+                <td>1</td>
+                <td>12345</td>
+                <td>Paid</td>
+                <td>2024-02-01</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>12345</td>
+                <td>Paid</td>
+                <td>2024-02-01</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>12345</td>
+                <td>Paid</td>
+                <td>2024-02-01</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>12345</td>
+                <td>Paid</td>
+                <td>2024-02-01</td>
+              </tr>
+              <!-- Add more rows as needed -->
+             
+            </tbody>
+          </table>
+          <div class="pagination-container">
+            <!-- Pagination buttons will be dynamically populated here -->
+          </div>
+        
+
+
+        </div>
+      
+  
+  
+      </div>
+    </div>
+
+
+    <!-- Header Ends Here -->
+
+      <!-- sidenav starts Here -->
+      <nav>
+        <div class="sidebar-top">
+          <div class="logo__wrapper">
+            <h2 class="hide">Ace Laundry</h2>
+          </div>
+          <div class="expand-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="white"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M7 7l5 5l-5 5"></path>
+              <path d="M13 7l5 5l-5 5"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="sidebar-links">
+          <ul>
+            <li>
+              <a href="#" title="Dashboard">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="#91959C"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M4 4h6v8h-6z"></path>
+                  <path d="M4 16h6v4h-6z"></path>
+                  <path d="M14 12h6v8h-6z"></path>
+                  <path d="M14 4h6v4h-6z"></path>
+                </svg>
+                <span class="link hide">Dashboard</span>
+              </a>
+            </li>
+            <!-- <li>
+              <a href="#reports" title="Reports">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="#91959C"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"
+                  ></path>
+                </svg>
+                <span class="link hide">Reports</span>
+              </a>
+            </li> -->
+          </ul>
+        </div>
+        <div class="sidebar-links sidebar-bottom">
+          <div class="divider"></div>
+          <ul>
+            <li>
+              <a href="Settings.html" title="Settings">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="#91959C"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
+                  ></path>
+                  <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                </svg>
+                <span class="link hide">Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- Sidenar Ends Here -->
+
+
+      <!-- snackbar -->
+      <div id="empty-field-alert"></div>
+    </div>
+
+    <script src="main.js"></script>
+
+
+<script>
+ 
+
+  // Add the function to populate the table with data from local storage based on filter and page
+  function populateTable(filter, page) {
+    const pageSize = 5; // Number of receipts per page
+    const tableBody = document.querySelector('.receipts-table tbody');
+    const paginationContainer = document.querySelector('.pagination-container');
+
+    // Clear existing rows and pagination buttons
+    tableBody.innerHTML = '';
+    paginationContainer.innerHTML = '';
+
+    // Retrieve data from local storage
+    const storedReceipts = localStorage.getItem('receiptDatabase');
+
+    if (storedReceipts) {
+      const receiptDatabase = JSON.parse(storedReceipts);
+
+      // Filter receipts based on the selected filter
+      const filteredReceipts = filterReceipts(receiptDatabase, filter);
+
+      // Calculate the total number of pages
+      const totalPages = Math.ceil(filteredReceipts.length / pageSize);
+
+      // Populate the pagination buttons
+      for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement('button');
+        button.classList.add('pagination-btn');
+        button.textContent = i;
+        paginationContainer.appendChild(button);
+
+        // Add 'active' class to the current page button
+        if (i === page) {
+          button.classList.add('active');
+        }
+      }
+
+      // Calculate the starting index for the current page
+      const startIndex = (page - 1) * pageSize;
+
+      // Extract the receipts for the current page
+      const pageReceipts = filteredReceipts.slice(startIndex, startIndex + pageSize);
+
+      // Iterate through the receipts for the current page and populate the table
+      pageReceipts.forEach((receipt, index) => {
+        const row = tableBody.insertRow();
+        const serialNumberCell = row.insertCell(0);
+        const receiptNumberCell = row.insertCell(1);
+        const paidStatusCell = row.insertCell(2);
+        const dateCell = row.insertCell(3);
+
+        serialNumberCell.textContent = startIndex + index + 1;
+        receiptNumberCell.textContent = receipt.previewNumber;
+        paidStatusCell.textContent = receipt.isPaid;
+        dateCell.textContent = receipt.date; // Add the property 'date' to your receipt data
+      });
+    }
+  }
+
+  // Function to filter receipts based on the selected filter
+  function filterReceipts(receipts, filter) {
+    if (filter === 'All') {
+      return receipts;
+    } else {
+      return receipts.filter(receipt => receipt.isPaid === filter);
+    }
+  }
+
+  // Function to handle pagination navigation
+  function handlePaginationNavigation(event) {
+    const page = parseInt(event.target.textContent);
+
+    // Get the current active filter
+    const activeFilter = document.querySelector('.filter div.active').textContent.trim();
+
+    // Call the function to populate the table based on the selected filter and page
+    populateTable(activeFilter, page);
+  }
+
+  // Call the function to populate the table with all receipts on page load
+  window.addEventListener('load', function () {
+    populateTable('All', 1); // 'All' will show all receipts initially on the first page
+
+    // Add event listener to filter container for event delegation
+    const filterContainer = document.querySelector('.filter_container');
+    filterContainer.addEventListener('click', function (event) {
+      if (event.target.tagName === 'DIV') {
+        // Remove 'active' class from all filter divs
+        const filterDivs = document.querySelectorAll('.filter div');
+        filterDivs.forEach(d => d.classList.remove('active'));
+
+        // Add 'active' class to the clicked filter div
+        event.target.classList.add('active');
+
+        // Get the filter value from the clicked div's text content
+        const filter = event.target.textContent.trim();
+
+        // Call the function to populate the table based on the selected filter and first page
+        populateTable(filter, 1);
+      }
+    });
+
+    // Set the "All" div as active on page load
+    const allDiv = document.querySelector('.filter div:first-child');
+    allDiv.classList.add('active');
+
+    // Add event listener to pagination container for event delegation
+    const paginationContainer = document.querySelector('.pagination-container');
+    paginationContainer.addEventListener('click', function (event) {
+      if (event.target.classList.contains('pagination-btn')) {
+        // Remove 'active' class from all pagination buttons
+        const paginationButtons = document.querySelectorAll('.pagination-btn');
+        paginationButtons.forEach(button => button.classList.remove('active'));
+
+        // Add 'active' class to the clicked pagination button
+        event.target.classList.add('active');
+
+        // Call the function to handle pagination navigation
+        handlePaginationNavigation(event);
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
