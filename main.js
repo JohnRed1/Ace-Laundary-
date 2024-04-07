@@ -218,8 +218,28 @@ function generateReceiptContent() {
             padding:0.5rem 0rem;
             border-bottom:2px dotted #000000
           }
+        
+          .footer{
+            position:fixed;
+            bottom:0;
+            left:0;
+            right:0;
+          }
+          
+          .Price{
+            display:flex;
+            flex-direction:column;
+            align-items:right;
+            border:none;
+          }
+          .orders{
+            display:flex;
+            align-items:start;
+            justify-content: start;
+            flex-direction:column;
 
-          /* Add more styles as needed */
+          }
+         
         </style>
       </head>
       <body>
@@ -230,6 +250,7 @@ function generateReceiptContent() {
       </div>
 
         <p>Receipt Number: ${previewNumber}</p>
+        <div class = "orders">
         <ul>`;
 
   // Iterate through each list item in the selected clothes list
@@ -249,8 +270,22 @@ function generateReceiptContent() {
   }
 
   receiptContent += `</ul>
-        <p>Total Price: ₦${totalPreviewPrice}</p>
-        <p>Paid Status: ${isPaid}</p>
+        
+        </div>
+      
+
+         <div class = "Price">
+         <p>Total Price: ₦${totalPreviewPrice}</p>
+         <p>Paid Status: ${isPaid}</p>
+         
+         </div>
+
+
+
+        <div class ="footer">
+        <h2>Thank you for trusting us with your clothes</h2>
+        
+        </div>
       </body>
     </html>`;
 
@@ -283,7 +318,53 @@ function errMsg(message) {
   }, 3000);
 }
 
-//  store receipt information
+
+// function storeReceipt() {
+//   const previewNumber =
+//     document.getElementById("previewNumberValue").textContent;
+//   const selectedClothesList = document.getElementById("selectedClothesList");
+//   const totalPreviewPrice = document.getElementById(
+//     "totalPreviewPriceValue"
+//   ).textContent;
+
+//   const paidCheckbox = document.getElementById("paidCheckbox");
+//   const isPaid = paidCheckbox.checked ? "Paid" : "Not Paid";
+
+//   // Format the current date as "YYYY-MM-DD"
+//   const currentDate = new Date();
+//   const formattedDate = currentDate.toISOString().split('T')[0];
+
+//   // Object to represent the receipt
+//   const receiptInfo = {
+//     previewNumber,
+//     items: [],
+//     totalPreviewPrice,
+//     isPaid,
+//     date: formattedDate, // Set date using a standardized format
+//     addedTimestamp: Date.now(),
+//   };
+
+//   // Iterate through each list item in the selected clothes list
+//   for (let i = 0; i < selectedClothesList.children.length; i++) {
+//     const listItem = selectedClothesList.children[i];
+
+//     // Check if the list item has the "deleteBtn" class
+//     const hasDeleteButton = listItem.querySelector(".deleteBtn");
+
+//     // Exclude the delete button if present
+//     const listItemContent = hasDeleteButton
+//       ? listItem.firstChild.nodeValue
+//       : listItem.textContent;
+
+//     // Add the list item content to the receipt object
+//     receiptInfo.items.push(listItemContent);
+//   }
+
+//   // Store the receipt information in the array
+//   receiptDatabase.push(receiptInfo);
+//   localStorage.setItem("receiptDatabase", JSON.stringify(receiptDatabase));
+// }
+
 function storeReceipt() {
   const previewNumber =
     document.getElementById("previewNumberValue").textContent;
@@ -295,13 +376,17 @@ function storeReceipt() {
   const paidCheckbox = document.getElementById("paidCheckbox");
   const isPaid = paidCheckbox.checked ? "Paid" : "Not Paid";
 
-  // object to represent the receipt
+  // Format the current date as "MM/DD/YYYY"
+  const currentDate = new Date();
+  const formattedDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+
+  // Object to represent the receipt
   const receiptInfo = {
     previewNumber,
     items: [],
     totalPreviewPrice,
     isPaid,
-    date: new Date().toLocaleDateString(),
+    date: formattedDate, // Set date using MM/DD/YYYY format
     addedTimestamp: Date.now(),
   };
 
@@ -325,6 +410,7 @@ function storeReceipt() {
   receiptDatabase.push(receiptInfo);
   localStorage.setItem("receiptDatabase", JSON.stringify(receiptDatabase));
 }
+
 
 // Function to search for a receipt in the database by receipt number
 function searchReceiptByNumber(receiptNumber) {

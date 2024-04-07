@@ -1,261 +1,568 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ace Laundry Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- Header starts Here -->
 
-    <header>
-      <div class="navbar">
-        <div class="Logo">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ace Laundry Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Header starts Here -->
+
+  <header>
+    <div class="navbar">
+      <div class="Logo">
+        <a href="index.html">
+
           <img src="Ace logo.png" alt="Logo" />
-          <h3>Laundry Services</h3>
-        </div>
-        <div class="search-bar">
-          <input
-            class="Searchbar searchId"
-            type="text"
-            placeholder="Search Receipt"
-            oninput="handleInput()"
-            onkeydown="handleKeyDown()"
-          />
-          <button class="search-button">
-            <span class="material-symbols-outlined" onclick="searchReceipt()">
-              search
-            </span>
-          </button>
-        </div>
+        </a>
+        <h3>Laundry Services</h3>
       </div>
-
-      <!-- Search Results -->
-      <div id="matchingReceiptsList">
-        <!-- Matching receipt numbers will be displayed here -->
-      </div>
-
-      <div id="receiptDetails">
-        <!-- Receipt details will be displayed here -->
-      </div>
-    </header>
-
-    
-    
-    <!-- Header Ends Here -->
-    
-    <!-- Receipt Filter -->
-    <div class="filter_container">
-      <div class="filter">
-        <div class="filter-option">All</div>
-        <div class="filter-option">Paid</div>
-        <div class="filter-option">Not Paid</div>
-      </div>
-      <div class="Receipts-table">
-        <div class="receiptN">
-          <h2>
-            Receipts
-          </h2>
-        </div>
-        
-        <div class="receiptsDb">
-          <div class="summary">
-            <div>
-              <h3>
-                Receipt Numbers's Table <span id="date">2024-02-01</span>
-              </h3>
-              <p>Table shows list of <span id="totalReceipt">30</span> receipt numbers</p>
-    
-              <input type="date" id="calender">
-            </div>
-            <div>
-              <h3>Total Price</h3>
-              <p><span id="total_price">56.78</span></p>
-            </div>
-          </div>
-      
-
-          <!-- Tables -->
-
-          <table class="receipts-table">
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Receipt Numbers</th>
-                <th>Paid Status</th>
-                <th>Price</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Your table rows will be populated here from database  -->
-              
-              
-             
-            </tbody>
-          </table>
-          <div class="pagination-container">
-            <!-- Pagination buttons will be dynamically populated here -->
-          </div>
-        
-
-
-        </div>
-      
-  
-  
+      <div class="search-bar">
+        <input class="Searchbar searchId" type="text" placeholder="Search Receipt" oninput="handleInput()"
+          onkeydown="handleKeyDown()" />
+        <button class="search-button">
+          <span class="material-symbols-outlined" onclick="searchReceipt()">
+            search
+          </span>
+        </button>
       </div>
     </div>
-      <!-- sidenav starts Here -->
-      <nav>
-        <div class="sidebar-top">
-          <div class="logo__wrapper">
-            <h2 class="hide">Ace Laundry</h2>
+
+    <!-- Search Results -->
+    <div id="matchingReceiptsList">
+      <!-- Matching receipt numbers will be displayed here -->
+    </div>
+
+    <div id="receiptDetails">
+      <!-- Receipt details will be displayed here -->
+    </div>
+  </header>
+
+
+
+  <!-- Header Ends Here -->
+
+  <!-- Receipt Filter -->
+  <div class="filter_container">
+    <div class="filter">
+      <div class="filter-option">All</div>
+      <div class="filter-option">Paid</div>
+      <div class="filter-option">Not Paid</div>
+    </div>
+    <div class="Receipts-table">
+      <div class="receiptN">
+        <h2>
+          Receipts
+        </h2>
+      </div>
+
+      <div class="receiptsDb">
+        <div class="summary">
+          <div>
+            <h3>
+              Receipt Numbers's Table <span id="date"></span>
+            </h3>
+            <p>Table shows list of <span id="totalReceipt"></span> receipt numbers</p>
+
+            <input type="date" id="calendar" onchange="updateDate()">
+            <button class="filterDate">Search</button>
           </div>
-          <div class="expand-btn">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="white"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+          <div>
+            <h3>Total Price</h3>
+            <p><span id="total_price"></span></p>
+          </div>
+        </div>
+
+
+        <!-- Tables -->
+
+        <table class="receipts-table">
+          <thead>
+            <tr>
+              <th>S/N</th>
+              <th>Receipt Numbers</th>
+              <th>Paid Status</th>
+              <th>Price</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="tableContent">
+            <!-- Your table rows will be populated here from database  -->
+
+
+
+          </tbody>
+        </table>
+        <div class="pagination-container">
+          <!-- Pagination buttons will be dynamically populated here -->
+        </div>
+
+
+
+      </div>
+
+
+
+    </div>
+  </div>
+  <!-- sidenav starts Here -->
+  <nav>
+    <div class="sidebar-top">
+      <div class="logo__wrapper">
+        <h2 class="hide">Ace Laundry</h2>
+      </div>
+      <div class="expand-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+          stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M7 7l5 5l-5 5"></path>
+          <path d="M13 7l5 5l-5 5"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="sidebar-links">
+      <ul>
+        <li>
+          <a href="#" title="Dashboard">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+              stroke="#91959C" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M7 7l5 5l-5 5"></path>
-              <path d="M13 7l5 5l-5 5"></path>
+              <path d="M4 4h6v8h-6z"></path>
+              <path d="M4 16h6v4h-6z"></path>
+              <path d="M14 12h6v8h-6z"></path>
+              <path d="M14 4h6v4h-6z"></path>
             </svg>
-          </div>
-        </div>
-        <div class="sidebar-links">
-          <ul>
-            <li>
-              <a href="#" title="Dashboard">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="#91959C"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M4 4h6v8h-6z"></path>
-                  <path d="M4 16h6v4h-6z"></path>
-                  <path d="M14 12h6v8h-6z"></path>
-                  <path d="M14 4h6v4h-6z"></path>
-                </svg>
-                <span class="link hide">Dashboard</span>
-              </a>
-            </li>
-            <!-- <li>
-              <a href="#reports" title="Reports">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="#91959C"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path
-                    d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"
-                  ></path>
-                </svg>
-                <span class="link hide">Reports</span>
-              </a>
-            </li> -->
-          </ul>
-        </div>
-        <div class="sidebar-links sidebar-bottom">
-          <div class="divider"></div>
-          <ul>
-            <li>
-              <a href="Settings.html" title="Settings">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="#91959C"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path
-                    d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
-                  ></path>
-                  <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
-                </svg>
-                <span class="link hide">Settings</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <!-- Sidenar Ends Here -->
+            <span class="link hide">Dashboard</span>
+          </a>
+        </li>
 
-
-      <!-- snackbar -->
-      <div id="empty-field-alert"></div>
+      </ul>
     </div>
+    <div class="sidebar-links sidebar-bottom">
+      <div class="divider"></div>
+      <ul>
+        <li>
+          <a href="Settings.html" title="Settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+              stroke="#91959C" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path
+                d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z">
+              </path>
+              <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+            </svg>
+            <span class="link hide">Settings</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Sidenar Ends Here -->
 
-    <script src="main.js"></script>
+
+  <!-- snackbar -->
+  <div id="empty-field-alert"></div>
+  </div>
+
+  <script src="main.js"></script>
 
 
 
-<script>
-  // Function to handle clicks on filter divs
-  function handleFilterClick(event) {
-    const filterDivs = document.querySelectorAll('.filter-option'); // Use a shared class name
 
-    // Check if the click target is a filter div
-    if (event.target.classList.contains('filter-option')) {
-      // Remove 'active' class from all filter divs
-      filterDivs.forEach(div => div.classList.remove('active'));
+  <script>
 
-      // Add 'active' class to the clicked filter div
-      event.target.classList.add('active');
+// function checkReceiptForCurrentDay() {
+//   // Get today's date
+//   const today = new Date(); 
+//   // Format today's date as MM/DD/YYYY
+//   const formattedToday = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+//   // Retrieve data from local storage
+//   const storedReceipts = localStorage.getItem('receiptDatabase');
+//   if (storedReceipts) {
+//     const receiptDatabase = JSON.parse(storedReceipts);
 
-      // Get the filter value from the clicked div's text content
-      const filter = event.target.textContent.trim();
+//     // Check if there are any receipts for today
+//     const receiptsForToday = receiptDatabase.filter(receipt => {
+//       const receiptDateParts = receipt.date.split('/'); // Split MM/DD/YYYY into parts
+//       const receiptDate = new Date(receiptDateParts[2], receiptDateParts[0] - 1, receiptDateParts[1]); // Create Date object
+//       const receiptFormattedDate = `${receiptDate.getMonth() + 1}/${receiptDate.getDate()}/${receiptDate.getFullYear()}`;
+//       return receiptFormattedDate === formattedToday;
+//     });
 
-      // Call the function to populate the table based on the selected filter and first page
-      populateTable(filter, 1);
+//     console.log('Receipts for Today:', receiptsForToday);
 
-      // Call the function to display the total price for the selected filter
-      displayTotalPrice(filter);
+//     // Flag to indicate whether there are receipts for today
+//     const hasReceiptsForToday = receiptsForToday.length > 0;
 
-      updateTotalReceipt(filter);
+//     if (hasReceiptsForToday) {
+//         // Display the total price for 'All' on page load
+//         displayTotalPrice('All');
+
+// // Populate the table with all receipts initially on the first page
+// populateTable('All', 1);
+
+// // Update the total receipt count for 'All' on page load
+// updateTotalReceipt('All');
+
+// // Add event listener to filter container for event delegation
+// const filterContainer = document.querySelector('.filter_container');
+// filterContainer.addEventListener('click', handleFilterClick);
+
+// // Set the "All" div as active on page load
+// const allDiv = document.querySelector('.filter-option:first-child');
+// allDiv.classList.add('active');
+
+// // Add event listener to pagination container for event delegation
+// const paginationContainer = document.querySelector('.pagination-container');
+// paginationContainer.addEventListener('click', function (event) {
+//   if (event.target.classList.contains('pagination-btn')) {
+//     // Remove 'active' class from all pagination buttons
+//     const paginationButtons = document.querySelectorAll('.pagination-btn');
+//     paginationButtons.forEach(button => button.classList.remove('active'));
+
+//     // Add 'active' class to the clicked pagination button
+//     event.target.classList.add('active');
+
+//     // Call the function to handle pagination navigation
+//     handlePaginationNavigation(event);
+//   }
+// });
+//     } else {
+//       // If no receipts exist for today, display "NO RECEIPT" message
+//       console.log('No receipts');
+//       const tableBody = document.getElementById('tableContent');
+//       tableBody.innerHTML = '<tr><td colspan="5">NO RECEIPT for today</td></tr>';
+//     }
+//   } else {
+//     // If there are no stored receipts, display "NO RECEIPT" message
+//     console.log('No stored receipts');
+//     const tableBody = document.getElementById('tableContent');
+//     tableBody.innerHTML = '<tr><td colspan="5">NO RECEIPT for today</td></tr>';
+//   }
+// }
+
+function checkReceiptForCurrentDay() {
+ // Get today's date in MM/DD/YYYY format
+ const today = new Date(); 
+  const formattedToday = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+
+  // Retrieve data from local storage
+  const storedReceipts = localStorage.getItem('receiptDatabase');
+  if (storedReceipts) {
+    const receiptDatabase = JSON.parse(storedReceipts);
+
+    // Check if there are any receipts for today
+    const receiptsForToday = receiptDatabase.filter(receipt => {
+      // Normalize the receipt date format to MM/DD/YYYY
+      const receiptDate = new Date(receipt.date);
+      const formattedReceiptDate = `${receiptDate.getMonth() + 1}/${receiptDate.getDate()}/${receiptDate.getFullYear()}`;
+      return formattedReceiptDate === formattedToday;
+    });
+
+    console.log('Receipts for Today:', receiptsForToday);
+
+    // Flag to indicate whether there are receipts for today
+    const hasReceiptsForToday = receiptsForToday.length > 0;
+    console.log(hasReceiptsForToday); // Log the value of hasReceiptsForToday
+
+    if (hasReceiptsForToday) {
+      // Populate the table with all receipts initially on the first page
+      populateTable('All', 1);
+
+      // Display the total price for 'All' on page load
+      displayTotalPrice('All');
+
+
+      // Update the total receipt count for 'All' on page load
+      updateTotalReceipt('All');
+
+      // Add event listener to filter container for event delegation
+      const filterContainer = document.querySelector('.filter_container');
+      filterContainer.addEventListener('click', handleFilterClick);
+
+      // Set the "All" div as active on page load
+      const allDiv = document.querySelector('.filter-option:first-child');
+      allDiv.classList.add('active');
+
+      // Add event listener to pagination container for event delegation
+      const paginationContainer = document.querySelector('.pagination-container');
+      paginationContainer.addEventListener('click', function (event) {
+        if (event.target.classList.contains('pagination-btn')) {
+          // Remove 'active' class from all pagination buttons
+          const paginationButtons = document.querySelectorAll('.pagination-btn');
+          paginationButtons.forEach(button => button.classList.remove('active'));
+
+          // Add 'active' class to the clicked pagination button
+          event.target.classList.add('active');
+
+          // Call the function to handle pagination navigation
+          handlePaginationNavigation(event);
+        }
+      });
+    } else {
+      // If no receipts exist for today, display "NO RECEIPT" message
+      console.log('No receipts');
+      const tableBody = document.getElementById('tableContent');
+      tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; ">NO RECEIPT for today</td></tr>';
     }
+  } else {
+    // If there are no stored receipts, display "NO RECEIPT" message
+    console.log('No stored receipts');
+    const tableBody = document.getElementById('tableContent');
+    tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; font-weight: bold;">NO RECEIPT for today</td></tr>';
+  }
+}
+
+
+    // Function to handle clicks on filter divs
+    function handleFilterClick(event) {
+      const filterDivs = document.querySelectorAll('.filter-option'); // Use a shared class name
+
+      // Check if the click target is a filter div
+      if (event.target.classList.contains('filter-option')) {
+        // Remove 'active' class from all filter divs
+        filterDivs.forEach(div => div.classList.remove('active'));
+
+        // Add 'active' class to the clicked filter div
+        event.target.classList.add('active');
+
+        // Get the filter value from the clicked div's text content
+        const filter = event.target.textContent.trim();
+
+        // Call the function to populate the table based on the selected filter and first page
+        populateTable(filter, 1);
+
+        // Call the function to display the total price for the selected filter
+        displayTotalPrice(filter);
+
+        updateTotalReceipt(filter);
+      }
+    }
+
+    // Function to update the total receipt count for a given filter
+    function updateTotalReceipt(filter) {
+      const totalReceiptElement = document.getElementById('totalReceipt');
+
+      // Retrieve data from local storage
+      const storedReceipts = localStorage.getItem('receiptDatabase');
+
+      if (storedReceipts) {
+        const receiptDatabase = JSON.parse(storedReceipts);
+
+        // Filter and sort receipts based on the selected filter
+        const filteredReceipts = filterReceipts(receiptDatabase, filter);
+
+        // Update the total receipt count
+        totalReceiptElement.textContent = filteredReceipts.length;
+      }
+    }
+
+
+    // Function to filter and sort receipts based on the selected filter
+function filterReceipts(receipts, filter) {
+  
+  let filteredReceipts;
+
+  if (filter === 'All') {
+    filteredReceipts = receipts;
+  } else {
+    filteredReceipts = receipts.filter(receipt => receipt.isPaid === filter);
   }
 
-  // Function to update the total receipt count for a given filter
-function updateTotalReceipt(filter) {
-  const totalReceiptElement = document.getElementById('totalReceipt');
+  
+
+  // Sort receipts in descending order based on their index
+  return filteredReceipts.sort((a, b) => b.index - a.index);
+}
+
+
+    // Function to display the total price for a given filter
+    function displayTotalPrice(filter) {
+      const total_price = document.getElementById('total_price');
+
+      // Retrieve data from local storage
+      const storedReceipts = localStorage.getItem('receiptDatabase');
+
+      if (storedReceipts) {
+        const receiptDatabase = JSON.parse(storedReceipts);
+
+        // Filter and sort receipts based on the selected filter
+        const filteredReceipts = filterReceipts(receiptDatabase, filter);
+
+        // Calculate the total price for the selected filter
+        const totalPrice = filteredReceipts.reduce((total, receipt) => total + parseFloat(receipt.totalPreviewPrice), 0);
+
+        // Display the total price
+        total_price.textContent = "₦" + totalPrice.toFixed(2);
+      }
+    }
+
+    function populateTable(filter, page) {
+      const pageSize = 5; // Number of receipts per page
+      const tableBody = document.querySelector('.receipts-table tbody');
+      const paginationContainer = document.querySelector('.pagination-container');
+
+      // Clear existing rows and pagination buttons
+      tableBody.innerHTML = '';
+      paginationContainer.innerHTML = '';
+
+      // Retrieve data from local storage
+      const storedReceipts = localStorage.getItem('receiptDatabase');
+
+      if (storedReceipts) {
+        const receiptDatabase = JSON.parse(storedReceipts);
+
+        // Filter and sort receipts based on the selected filter
+        const filteredReceipts = filterReceipts(receiptDatabase, filter);
+
+        // Sort receipts in descending order based on their addition order
+        const sortedReceipts = filteredReceipts.sort((a, b) => a.addedTimestamp - b.addedTimestamp);
+
+        // Reverse the order to display the last added receipt at the top
+        sortedReceipts.reverse();
+
+        // Calculate the total number of pages
+        const totalPages = Math.ceil(sortedReceipts.length / pageSize);
+
+        // Populate the pagination buttons
+        for (let i = 1; i <= totalPages; i++) {
+          const button = document.createElement('button');
+          button.classList.add('pagination-btn');
+          button.textContent = i;
+          paginationContainer.appendChild(button);
+
+          // Add 'active' class to the current page button
+          if (i === page) {
+            button.classList.add('active');
+          }
+        }
+
+        // Calculate the starting index for the current page
+        const startIndex = (page - 1) * pageSize;
+
+        // Extract the receipts for the current page
+        const pageReceipts = sortedReceipts.slice(startIndex, startIndex + pageSize);
+
+        // Iterate through the receipts for the current page and populate the table
+        pageReceipts.forEach((receipt, index) => {
+          const row = tableBody.insertRow();
+          const serialNumberCell = row.insertCell(0);
+          const receiptNumberCell = row.insertCell(1);
+          const paidStatusCell = row.insertCell(2);
+          const priceCell = row.insertCell(3); // New cell for Price
+          const dateCell = row.insertCell(4); // Adjust index for Date
+
+          serialNumberCell.textContent = startIndex + index + 1;
+          receiptNumberCell.textContent = receipt.previewNumber;
+          paidStatusCell.textContent = receipt.isPaid;
+          priceCell.textContent = "₦" + receipt.totalPreviewPrice; // Display total price with prefix
+          dateCell.textContent = receipt.date;
+        });
+      }
+    }
+
+
+    // Function to handle pagination navigation
+    function handlePaginationNavigation(event) {
+      const page = parseInt(event.target.textContent);
+
+      // Get the current active filter
+      const activeFilter = document.querySelector('.filter-option.active').textContent.trim();
+
+      // Call the function to populate the table based on the selected filter and page
+      populateTable(activeFilter, page);
+
+      // Call the function to display the total price for the selected filter
+      displayTotalPrice(activeFilter);
+    }
+
+
+
+
+document.getElementById('calendar').addEventListener('change', updateDate);
+
+
+
+
+// Function to update the table, total amount, and total receipt based on selected date
+// function updateDate() {
+//   // Get the selected date from the calendar input
+//   const selectedDate = document.getElementById('calendar').value;
+
+//   // Log the selected date before formatting
+//   console.log('Selected Date (Before Formatting):', selectedDate);
+
+//   // Format the selected date to match the date format of the database (MM/DD/YYYY)
+//   const selectedDateParts = selectedDate.split('-');
+//   const formattedSelectedDate = `${selectedDateParts[1]}/${selectedDateParts[2]}/${selectedDateParts[0]}`;
+
+//   // Log the formatted selected date for debugging
+//   console.log('Formatted Selected Date:', formattedSelectedDate);
+
+//   // Retrieve data from local storage
+//   const storedReceipts = localStorage.getItem('receiptDatabase');
+
+//   if (storedReceipts) {
+//     const receiptDatabase = JSON.parse(storedReceipts);
+
+//     // Filter receipts based on the selected date
+//     const filteredReceipts = receiptDatabase.filter(receipt => {
+//   // Log the receipt date and formatted selected date for debugging
+//   console.log('Receipt Date:', receipt.date);
+//   console.log('Formatted Selected Date:', formattedSelectedDate);
+  
+//   // Compare the formatted selected date with the receipt date
+//   return receipt.date === formattedSelectedDate;
+// });
+
+//     // Log each receipt's date for debugging
+//     filteredReceipts.forEach(receipt => {
+//       console.log('Filtered Receipt Date:', receipt.date);
+//     });
+
+//     // Log the filtered receipts for debugging
+//     console.log('Filtered Receipts:', filteredReceipts);
+
+//     // Populate the table with filtered receipts
+//     populateTable(filteredReceipts, 1);
+
+//     // Calculate and display the total price for filtered receipts
+//     displayTotalPrice(filteredReceipts);
+
+//     // Update the total receipt count for filtered receipts
+//     updateTotalReceipt(filteredReceipts);
+//   }
+// }
+
+
+function updateDate() {
+  // Get the selected date from the calendar input
+  const selectedDate = document.getElementById('calendar').value;
+
+  // Log the selected date before formatting
+  console.log('Selected Date (Before Formatting):', selectedDate);
+
+  // Split the selected date into parts
+  const selectedDateParts = selectedDate.split('-');
+
+  // Format the selected date to match the date format of the database (MM/DD/YYYY)
+  const formattedSelectedDate = [
+    selectedDateParts[1].padStart(2, '0'), // Month with leading zero
+    selectedDateParts[2].padStart(2, '0'), // Day with leading zero
+    selectedDateParts[0] // Year
+  ].join('/');
+
+  // Log the formatted selected date for debugging
+  console.log('Formatted Selected Date:', formattedSelectedDate);
 
   // Retrieve data from local storage
   const storedReceipts = localStorage.getItem('receiptDatabase');
@@ -263,168 +570,38 @@ function updateTotalReceipt(filter) {
   if (storedReceipts) {
     const receiptDatabase = JSON.parse(storedReceipts);
 
-    // Filter and sort receipts based on the selected filter
-    const filteredReceipts = filterReceipts(receiptDatabase, filter);
+    // Filter receipts based on the selected date
+    const filteredReceipts = receiptDatabase.filter(receipt => {
+      // Log the receipt date for debugging
+      console.log('Receipt Date:', receipt.date);
+      
+      // Normalize the receipt date format to match the formatted selected date
+      const receiptDateParts = receipt.date.split('/');
+      const normalizedReceiptDate = [
+        receiptDateParts[0].padStart(2, '0'), // Month with leading zero
+        receiptDateParts[1].padStart(2, '0'), // Day with leading zero
+        receiptDateParts[2] // Year
+      ].join('/');
 
-    // Update the total receipt count
-    totalReceiptElement.textContent = filteredReceipts.length;
+      // Compare the formatted selected date with the normalized receipt date
+      return normalizedReceiptDate === formattedSelectedDate;
+    });
+
+    console.log('Filtered Receipts:', filteredReceipts);
+    
+
+    // Populate the table with filtered receipts
+    populateTable(filteredReceipts, 1);
+
+    // Calculate and display the total price for filtered receipts
+    displayTotalPrice(filteredReceipts);
+
+    // Update the total receipt count for filtered receipts
+    updateTotalReceipt(filteredReceipts);
   }
 }
 
 
-  // Function to filter and sort receipts based on the selected filter
-  function filterReceipts(receipts, filter) {
-    let filteredReceipts;
-
-    if (filter === 'All') {
-      filteredReceipts = receipts;
-    } else {
-      filteredReceipts = receipts.filter(receipt => receipt.isPaid === filter);
-    }
-
-    // Sort receipts in descending order based on their index
-    return filteredReceipts.sort((a, b) => b.index - a.index);
-  }
-
-  // Function to display the total price for a given filter
-  function displayTotalPrice(filter) {
-    const total_price = document.getElementById('total_price');
-
-    // Retrieve data from local storage
-    const storedReceipts = localStorage.getItem('receiptDatabase');
-
-    if (storedReceipts) {
-      const receiptDatabase = JSON.parse(storedReceipts);
-
-      // Filter and sort receipts based on the selected filter
-      const filteredReceipts = filterReceipts(receiptDatabase, filter);
-
-      // Calculate the total price for the selected filter
-      const totalPrice = filteredReceipts.reduce((total, receipt) => total + parseFloat(receipt.totalPreviewPrice), 0);
-
-      // Display the total price
-      total_price.textContent = "₦" + totalPrice.toFixed(2);
-    }
-  }
-
-  function populateTable(filter, page) {
-    const pageSize = 5; // Number of receipts per page
-    const tableBody = document.querySelector('.receipts-table tbody');
-    const paginationContainer = document.querySelector('.pagination-container');
-
-    // Clear existing rows and pagination buttons
-    tableBody.innerHTML = '';
-    paginationContainer.innerHTML = '';
-
-    // Retrieve data from local storage
-    const storedReceipts = localStorage.getItem('receiptDatabase');
-
-    if (storedReceipts) {
-      const receiptDatabase = JSON.parse(storedReceipts);
-
-      // Filter and sort receipts based on the selected filter
-      const filteredReceipts = filterReceipts(receiptDatabase, filter);
-
-      // Sort receipts in descending order based on their addition order
-      const sortedReceipts = filteredReceipts.sort((a, b) => a.addedTimestamp - b.addedTimestamp);
-
-      // Reverse the order to display the last added receipt at the top
-      sortedReceipts.reverse();
-
-      // Calculate the total number of pages
-      const totalPages = Math.ceil(sortedReceipts.length / pageSize);
-
-      // Populate the pagination buttons
-      for (let i = 1; i <= totalPages; i++) {
-        const button = document.createElement('button');
-        button.classList.add('pagination-btn');
-        button.textContent = i;
-        paginationContainer.appendChild(button);
-
-        // Add 'active' class to the current page button
-        if (i === page) {
-          button.classList.add('active');
-        }
-      }
-
-      // Calculate the starting index for the current page
-      const startIndex = (page - 1) * pageSize;
-
-      // Extract the receipts for the current page
-      const pageReceipts = sortedReceipts.slice(startIndex, startIndex + pageSize);
-
-      // Iterate through the receipts for the current page and populate the table
-      pageReceipts.forEach((receipt, index) => {
-        const row = tableBody.insertRow();
-        const serialNumberCell = row.insertCell(0);
-        const receiptNumberCell = row.insertCell(1);
-        const paidStatusCell = row.insertCell(2);
-        const priceCell = row.insertCell(3); // New cell for Price
-        const dateCell = row.insertCell(4); // Adjust index for Date
-
-        serialNumberCell.textContent = startIndex + index + 1;
-        receiptNumberCell.textContent = receipt.previewNumber;
-        paidStatusCell.textContent = receipt.isPaid;
-        priceCell.textContent = "₦" + receipt.totalPreviewPrice; // Display total price with prefix
-        dateCell.textContent = receipt.date;
-      });
-    }
-  }
-
-  // Function to handle pagination navigation
-  function handlePaginationNavigation(event) {
-    const page = parseInt(event.target.textContent);
-
-    // Get the current active filter
-    const activeFilter = document.querySelector('.filter-option.active').textContent.trim();
-
-    // Call the function to populate the table based on the selected filter and page
-    populateTable(activeFilter, page);
-
-    // Call the function to display the total price for the selected filter
-    displayTotalPrice(activeFilter);
-  }
-
-  // Call the function to populate the table with all receipts and display total price on page load
-window.addEventListener('load', function () {
-  // Display the total price for 'All' on page load
-  displayTotalPrice('All');
-
-  // Populate the table with all receipts initially on the first page
-  populateTable('All', 1);
-
-   // Update the total receipt count for 'All' on page load
-   updateTotalReceipt('All');
-
-  // Add event listener to filter container for event delegation
-  const filterContainer = document.querySelector('.filter_container');
-  filterContainer.addEventListener('click', handleFilterClick);
-
-  // Set the "All" div as active on page load
-  const allDiv = document.querySelector('.filter-option:first-child');
-  allDiv.classList.add('active');
-
-  // Add event listener to pagination container for event delegation
-  const paginationContainer = document.querySelector('.pagination-container');
-  paginationContainer.addEventListener('click', function (event) {
-    if (event.target.classList.contains('pagination-btn')) {
-      // Remove 'active' class from all pagination buttons
-      const paginationButtons = document.querySelectorAll('.pagination-btn');
-      paginationButtons.forEach(button => button.classList.remove('active'));
-
-      // Add 'active' class to the clicked pagination button
-      event.target.classList.add('active');
-
-      // Call the function to handle pagination navigation
-      handlePaginationNavigation(event);
-    }
-  });
-});
-
-
-
-
-</script>
 
 
 
@@ -433,10 +610,33 @@ window.addEventListener('load', function () {
 
 
 
+    // Call the function to populate the table with all receipts and display total price on page load
+    window.addEventListener('load', function () {
+
+      // Get the span element by its id
+      const dateSpan = document.getElementById("date");
+
+      // Create a new Date object for the current date
+      const currentDate = new Date();
+
+      // Format the current date as "YYYY-MM-DD"
+      const formattedDate = currentDate.toISOString().split('T')[0];
+
+      // Set the text content of the span element to the formatted date
+      dateSpan.textContent = formattedDate;
+
+      checkReceiptForCurrentDay();
+
+   
+    });
 
 
 
 
+  </script>
 
-  </body>
+
+
+</body>
+
 </html>
